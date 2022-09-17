@@ -24,6 +24,7 @@ class Species{
         bool isDead;
         int x;
         int y;
+        int speciesType;
 
         // friend class FoodChains;
 
@@ -31,7 +32,7 @@ class Species{
 
         Species();
 
-        Species(int x, int y, int breedCycle = 0, int starveCycle = 0, bool isDead = false);
+        Species(int speciesType, int x, int y, int breedCycle = 0, int starveCycle = 0, bool isDead = false);
         
         void setX(int newX);
         int getX(){ return x;}
@@ -50,8 +51,13 @@ class Species{
         void setIsDead(bool newStatus);
         bool getIsDead(){ return isDead;}
 
+        int generateRandomDirection() const;
+        array<int, 2> getNextCoordinate(int x, int y) const;
+
         virtual string toString();
-        virtual array<int, 2> move();
+        virtual void move(array<array <Species*, 10>, 10> &grid);
+
+        int getSpeciesType() const;
 
 };
 

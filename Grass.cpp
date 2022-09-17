@@ -12,8 +12,8 @@ using std::string;
 
 Grass::Grass(){}
 
-Grass::Grass(int lon, int lat, int bc, int sc, bool idd):
-    Species(lon, lat, bc, sc, idd){}
+Grass::Grass(int st, int lon, int lat, int bc, int sc, bool idd):
+    Species(st, lon, lat, bc, sc, idd){}
 
 
 string Grass::toString(){

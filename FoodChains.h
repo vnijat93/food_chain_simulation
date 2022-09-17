@@ -11,23 +11,29 @@
 
 #include "Species.h"
 #include <array>
+#include <vector>
 
 using std::array;
 using std::string;
+using std::vector;
 
 class FoodChains{
 
     private:
         int numOfGrass;
+        int numOfHoppers;
         const int columns = 10;
         const int rows = 10;
         array <array <Species*, 10>, 10> grid;
+        // vector <vector <Species*> > grid;
+        // Species **grid;
         array <string, 100> coords;
 
     public:
-        FoodChains(int numOfGrass);
+        FoodChains(int numOfGrass, int numOfHoppers);
 
         void initializeGrid();
+        void initializeCoords();
 
         int getColumns(){ return columns;}
         int getRows(){ return rows;}
@@ -38,6 +44,10 @@ class FoodChains{
         void populateCells();
 
         string toString() const;
+        void populateGrass();
+
+        static bool isValidCoordinate(int x, int y);
+        void simulate();
 
 };
 

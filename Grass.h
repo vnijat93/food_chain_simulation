@@ -18,12 +18,10 @@ class Grass: public Species{
 
     public:
         Grass();
-        Grass(int x, int y, int breedCycle = 0, int starveCycle = 0, bool isDead = false);
-        // ~Grass();
-        Species* clone() const {return new Grass(*this);}
+        Grass(int st, int x, int y, int breedCycle = 0, int starveCycle = 0, bool isDead = false);
+        // type 1
 
         string toString();
-        // virtual array<int, 2> move();
 };
 
 #endif

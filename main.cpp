@@ -1,19 +1,32 @@
 #include "Grass.h"
 #include "Species.h"
+#include "Grasshopper.h"
 #include "FoodChains.h"
 #include <iostream>
 #include <random>
+#
 
 using std::cout;
 using std::endl;
+using std::cin;
 using std::to_string;
 
 
 int main(){
 
-    FoodChains fc(33);
-    cout << fc.toString();
-    // Grass grass(0, 5);
+    FoodChains fc(1, 1);
+    // fc.populateGrass();
+    // cout << fc.toString()<< endl;
+    fc.populateCells();
+    cout << fc.toString()<< endl;
+
+    int userInput = 1;
+    while (userInput == 1){
+        fc.simulate();
+        cout << "Enter 1 to continue: ";
+        cin >> userInput;
+    }
+    // Grasshopper grass(0, 5);
     // Species* grassPtr = nullptr;
     // grassPtr = &grass;
     // cout << grassPtr->toString();

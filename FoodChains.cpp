@@ -8,6 +8,7 @@
 
 #include "FoodChains.h"
 #include "Grass.h"
+#include "Grasshopper.h"
 #include <random>
 #include <iostream>
 #include <typeinfo>
@@ -18,15 +19,14 @@ using std::cout;
 using std::endl;
 using std::string;
 
-FoodChains::FoodChains(int grass){
+FoodChains::FoodChains(int grass, int hoppers){
     numOfGrass = grass;
-    Species* grid[10][10];
+    numOfHoppers = hoppers;
     array <string, 100> coords;
 
     initializeGrid();
-
-    populateCells();
 }
+
 
 void FoodChains::initializeGrid(){
     for (int i = 0; i < 10; i++){
@@ -62,27 +62,29 @@ bool FoodChains::checkIfCoordExists(int x, int y){
 
 array<int, 2> FoodChains::generateCoordinate(){
 
-    int x = generateRandomNumber();
-    int y = generateRandomNumber();
+    bool coordExists = true;
 
-    array<int, 2> coord = {x, y};
-    bool coordExists = checkIfCoordExists(x, y);
+    while (coordExists){
+        int x = generateRandomNumber();
+        int y = generateRandomNumber();
 
-    if (coordExists){
-        return generateCoordinate();
-    }
-    else{
-        return coord;
+        array<int, 2> coord = {x, y};
+        coordExists = checkIfCoordExists(x, y);
+
+        if (!coordExists){
+            return coord;
+        }else{continue;}
     }
 }
 
 string FoodChains::toString() const{
     string horizontalLine = "_________________________________________\n";
     string result = "";
+
     for (int i = 0; i < 10; i++){
+
         result += horizontalLine;
         for (int j = 0; j < 10; j++){
-
             Species *s = grid[i][j];
             result += "|" + s->toString();
         }
@@ -98,10 +100,40 @@ void FoodChains::populateCells(){
     for (int i = 0; i < numOfGrass; i++){
         array<int, 2> coord = generateCoordinate();
 
-        Grass grass(coord[0], coord[1]);
+        Grass grass(1, coord[0], coord[1]);
         Species* grassPtr = nullptr;
         grassPtr = &grass;
-
         grid[coord[0]][coord[1]] = grassPtr;
+    }
+
+    // generate grasshoppers
+    for (int i = 0; i < numOfHoppers; i++){
+
+        array<int, 2> coord = generateCoordinate();
+
+        Grasshopper hopper(2, coord[0], coord[1]);
+        Species* hopperPtr = nullptr;
+        hopperPtr = &hopper;
+        cout << hopperPtr->toString() <<endl;
+        grid[coord[0]][coord[1]] = hopperPtr;
+    }
+}
+
+bool FoodChains::isValidCoordinate(int x, int y){
+    if (x <10 && x >= 0 && y < 10 && y >= 0){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+void FoodChains::simulate(){
+    cout << toString() << endl;
+    for (int i = 0; i < 10; i++){
+        for (int j = 0; j < 10; j++){
+            Species *s = grid[i][j];
+            s->toString();
+            // s->move(grid);
+        }
     }
 }
